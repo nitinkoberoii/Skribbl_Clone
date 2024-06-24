@@ -28,7 +28,7 @@ class _PaintScreenState extends State<PaintScreen> {
 
   // socket io client connection
   void connect() {
-    _socket = IO.io("http://192.168.137.1:3000", <String, dynamic>{
+    _socket = IO.io('http://192.168.56.1:3000', <String, dynamic>{
       'transports': ['websocket'],
       'autoConnect': false,
     });
@@ -40,7 +40,7 @@ class _PaintScreenState extends State<PaintScreen> {
 
     // listen to socket
     _socket.onConnect((data) {
-      // print("connected");
+      print("connected");
       _socket.on('updateRoom', (roomData) {
         setState(() {
           dataOfRoom = roomData;

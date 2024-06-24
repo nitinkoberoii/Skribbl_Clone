@@ -30,7 +30,7 @@ class _CreateRoomScreenState extends State<CreateRoomScreen> {
           builder: (builder) => PaintScreen(
                 data: data,
                 screenFrom: 'createRoom',
-              )));
+              )),);
     }
   }
 
