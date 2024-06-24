@@ -1,16 +1,20 @@
 # scribbl_clone
 
-A new Flutter project.
+This project is a clone of Skribbl.io, which is a word guessing game.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+This project was made as a part of learning Full-Stack App Development using MongoDB, Express.js, Flutter, Node.js.
+The credit for this application belongs to Rivaan Ranawat.
 
-A few resources to get you started if this is your first Flutter project:
+Additional dart packages to be installed to run this application are:
+- socket_io_client
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+The packages that were installed using npm are:
+- axios
+- express
+- http
+- mongoose
+- socket_io
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Also, there wil be a need for downgrading your socket.io version to 2.3.0 .
