@@ -20,17 +20,19 @@ class _CreateRoomScreenState extends State<CreateRoomScreen> {
         _roomNameController.text.isNotEmpty &&
         _maxRoundsValue != null &&
         _maxRoomSizeValue != null) {
-      Map data = {
+      Map<String, String> data = {
         'nickname': _nameController.text,
         'name': _roomNameController.text,
-        'occupancy': _maxRoomSizeValue,
-        'maxRounds': _maxRoundsValue,
+        'occupancy': _maxRoomSizeValue!,
+        'maxRounds': _maxRoundsValue!,
       };
-      Navigator.of(context).push(MaterialPageRoute(
-          builder: (builder) => PaintScreen(
-                data: data,
-                screenFrom: 'createRoom',
-              )),);
+      Navigator.of(context).push(
+        MaterialPageRoute(
+            builder: (builder) => PaintScreen(
+                  data: data,
+                  screenFrom: 'createRoom',
+                )),
+      );
     }
   }
 
