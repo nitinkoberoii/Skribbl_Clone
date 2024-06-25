@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:scribbl_clone/paint_screen.dart';
 import 'package:scribbl_clone/widgets/custom_text_field.dart';
+// import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class CreateRoomScreen extends StatefulWidget {
   const CreateRoomScreen({super.key});
@@ -14,6 +15,31 @@ class _CreateRoomScreenState extends State<CreateRoomScreen> {
   final TextEditingController _roomNameController = TextEditingController();
   late String? _maxRoundsValue;
   late String? _maxRoomSizeValue;
+  // late IO.Socket socket;
+  //
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   connectSocket();
+  // }
+  //
+  // void connectSocket() {
+  //   socket = IO.io('http://192.168.137.1:3000', <String, dynamic>{
+  //     'transports': ['websocket'],
+  //     'autoConnect': false,
+  //   });
+  //   socket.connect();
+  //   socket.onConnect((_) {
+  //     print('connected to server with socket id: ${socket.id}');
+  //   });
+  //   socket.on('notCorrectGame', (data) {
+  //     print('Error: $data');
+  //   });
+  //   socket.on('updateRoom', (data) {
+  //     print('Room updated: $data');
+  //   });
+  //   socket.onDisconnect((_) => print('disconnected'));
+  // }
 
   void createRoom() {
     if (_nameController.text.isNotEmpty &&
@@ -26,6 +52,8 @@ class _CreateRoomScreenState extends State<CreateRoomScreen> {
         'occupancy': _maxRoomSizeValue!,
         'maxRounds': _maxRoundsValue!,
       };
+      print('Emitting create-game event with data: $data');
+      // socket.emit('create-game', data);
       Navigator.of(context).push(
         MaterialPageRoute(
             builder: (builder) => PaintScreen(
