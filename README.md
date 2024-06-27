@@ -21,4 +21,5 @@ The packages that were installed using npm are:
 Also, there wil be a need for downgrading your socket.io version to 2.3.0 .
 Now, there is a problem with the version compatibility of dart's socket_io_client and node's socket.io .
 Fo reference, 
+
 ![image](https://github.com/nitinkoberoii/Skribbl_Clone/assets/134691738/ce465cd5-3682-4bb8-b18d-8714eb4d4445)
