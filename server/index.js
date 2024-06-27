@@ -12,7 +12,7 @@ var io = require("socket.io")(server);
 app.use(express.json());
 
 // connect to our MongoDB
-const DB = "mongodb+srv://Nitin:Nitin123@demoapplications.urh0ulu.mongodb.net/?retryWrites=true&w=majority&appName=DemoApplications";
+const DB = "";
 
 mongoose.connect(DB).then(() => {
     console.log("Connection Successful!");
