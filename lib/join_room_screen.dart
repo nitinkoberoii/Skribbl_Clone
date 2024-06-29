@@ -37,7 +37,7 @@ class _JoinRoomScreenState extends State<JoinRoomScreen> {
         children: [
           const Center(
             child: Text(
-              "Create Room",
+              "Join Room",
               style: TextStyle(fontSize: 30),
             ),
           ),
