@@ -12,7 +12,7 @@ var io = require("socket.io")(server);
 app.use(express.json());
 
 // connect to our MongoDB
-const DB = "";
+const DB = "mongodb+srv://Nitin:Nitin123@demoapplications.urh0ulu.mongodb.net/?retryWrites=true&w=majority&appName=DemoApplications";
 
 mongoose.connect(DB).then(() => {
     console.log("Connection Successful!");
@@ -87,6 +87,90 @@ io.on('connection', (socket) => {
             console.log(err);
         }
     })
+
+    socket.on('msg', async (data) => {
+        try {
+            if(data.msg === data.word) {
+                let room = await Room.find({name: data.roomName});
+                let userPlayer = room[0].players.filter(
+                    (player) => player.nickname === data.username
+                );
+                if(data.timeTaken !== 0) {
+                    userPlayer[0].points += Math.round((200 / data.timeTaken) * 10);
+                }
+                room = await room[0].save();
+
+                io.to(data.roomName).emit('msg', {
+                    username: data.username,
+                    msg: 'Guessed it!',
+                    guessedUserCtr: data.guessedUserCtr + 1,
+                })
+                socket.emit('closeInput', "");
+            } else {
+                io.to(data.roomName).emit('msg', {
+                    username: data.username,
+                    msg: data.msg,
+                    guessedUserCtr: data.guessedUserCtr,
+                })
+            }
+        } catch(err) {
+            console.log(err.toString());
+        }
+    })
+
+    socket.on('change-turn', async (name) => {
+        try {
+            let room = await Room.findOne({name});
+            let idx = room.turnIndex;
+
+            if(idx + 1 === room.players.length) {
+                room.currentRound += 1;
+            }
+            if(room.currentRound <= room.maxRounds) {
+                const word = getWord();
+                room.word = word;
+                room.turnIndex = (idx+1) % room.players.length;
+                room.turn = room.players[room.turnIndex];
+                room = await room.save();
+                io.to(name).emit('change-turn', room);
+            } else {
+                // show the leaderboard
+            }
+            
+        } catch (err) {
+            console.log(err);
+        }
+    })
+
+    socket.on('updateScore', async (name) => {
+        try {
+            const room = await Room.findOne({name});
+            io.to(name).emit('updateScore', room);
+        } catch (err) {
+            console.log(err);
+        }
+    })
+
+    // white board sockets
+    socket.on('paint', ({details, roomName}) => {
+        io.to(roomName).emit('points', {details: details});
+    })
+
+    // color socket
+    socket.on('color-change', ({color, roomName}) => {
+        io.to(roomName).emit('color-change', color);
+    })
+
+    // stroke socket
+    socket.on('stroke-width', ({value, roomName}) => {
+        io.to(roomName).emit('stroke-width', value);
+    })
+
+    // clear screen
+    socket.on('clean-screen', (roomName) => {
+        io.to(roomName).emit('clean-screen', '');
+    })
+
 })
 
 server.listen(port, "0.0.0.0", () => {
