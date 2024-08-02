@@ -1,4 +1,4 @@
-# scribbl_clone
+# Skribbl Clone
 
 This project is a clone of Skribbl.io, which is a word guessing game.
 
